@@ -1,0 +1,32 @@
+{
+  "name": "myblockchain",
+  "version": "1.0.0",
+  "description": "A BlockChain implementation written in TypeScript accesible via an API.",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon",
+    "compile": "tsc",
+    "deployment": "tsc && node dist/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LucasRosenberger/MyBlockChain.git"
+  },
+  "keywords": [
+    "TypeScript",
+    "BlockChain"
+  ],
+  "author": "Lucas Rosenberger",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/LucasRosenberger/MyBlockChain/issues"
+  },
+  "homepage": "https://github.com/LucasRosenberger/MyBlockChain#readme",
+  "dependencies": {
+    "cors": "^2.8.4",
+    "express": "^4.16.2",
+    "nodemon": "^1.12.1",
+    "ts-node": "^3.3.0",
+    "typescript": "^2.5.3"
+  }
+}
