@@ -2,7 +2,7 @@ import { Block } from './Block';
 import { Transaction } from './Transaction';
 import * as hash from 'js-sha256';
 
-class Blockchain {
+export class Blockchain {
     private chain: Array<Block>;
     private currentTransactions: Array<Transaction>;
 
@@ -10,7 +10,12 @@ class Blockchain {
         this.chain = new Array();
         this.currentTransactions = new Array();
     }
-
+    get getChain(): Array<Block> {
+        return this.chain;
+    }
+    public test() {
+        return "test";
+    }
     //Find a number wich multiplied by lastProof gives you a hash with 4 leading 0
     public proofOfWork(lastProof: number): number {
         let proof = 0;
@@ -24,7 +29,8 @@ class Blockchain {
         return hash.sha256(lastProof + proof).substring(0, 4) === "0000";
     }
     //Adds a new block to the Blockchain
-    public newBlock(proof: number, previousHash: string = Blockchain.hash(this.chain.pop())): any {
+    public newBlock(proof: number, prevHash?: string): Block {
+        let previousHash = prevHash || Blockchain.hash(this.lastBlock);
         let block: Block = new Block(this.chain.length + 1, Date.now(), this.currentTransactions, proof, previousHash);
         this.currentTransactions = new Array();
         this.chain.push(block);
@@ -43,8 +49,8 @@ class Blockchain {
         return hash.sha256(block);
     }
 
-    get lastBlock(): Block {
-        return this.chain.pop();
+    public get lastBlock(): Block {
+        return this.chain[this.chain.length - 1];
     }
 
 }
