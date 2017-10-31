@@ -14,4 +14,8 @@ export class Block {
         this.proof = _proof;
         this.previousHash = _previousHash;
     }
+
+    public toString = (): string => {
+        return this.index + this.timestamp + this.transactions.toString() + this.proof + this.previousHash;
+    }
 }

@@ -14,10 +14,11 @@ export class MainController {
     }
     public mineBlock(req, res) {
         //This is undefined in this codeBlock
-        let lastBlock = this.blockChain.lastBlock;
+        let lastBlock = this.blockChain.chain[this.blockChain.chain.length - 1];
         let proof = this.blockChain.proofOfWork(lastBlock.proof);
         this.blockChain.newTransaction("0", this.uuid, 1);
         let block: Block = this.blockChain.newBlock(proof);
+
         res.json({
             message: "New Block Added!",
             index: block.index,

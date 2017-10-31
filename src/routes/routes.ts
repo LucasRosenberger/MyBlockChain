@@ -13,10 +13,14 @@ export class Routes {
         this.setRoutes();
     }
     private setRoutes(): void {
-        this.server.route('/mine').get(this.mainController.mineBlock);
+        this.server.route('/mine').get((req, res) => {
+            this.mainController.mineBlock(req, res);
+        });
 
         this.server.route('/transactions/new').post(this.mainController.newTransaction);
 
-        this.server.route('/chain').get(this.mainController.getChain);
+        this.server.route('/chain').get((req, res) => {
+            this.mainController.getChain(req, res);
+        });
     }
 }

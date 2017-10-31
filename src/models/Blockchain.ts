@@ -5,28 +5,39 @@ import * as hash from 'js-sha256';
 export class Blockchain {
     private chain: Array<Block>;
     private currentTransactions: Array<Transaction>;
+    private static proofOfWorkLength: number = 4;
+    private static proofString: string;
 
     constructor() {
         this.chain = new Array();
         this.currentTransactions = new Array();
+        this.getProofString();
+        //Creating the genesis block
+        this.newBlock(100, "1");
+    }
+    private getProofString() {
+        let t: string = '';
+        for (let i = 0; i < Blockchain.proofOfWorkLength; i++) {
+            t += "0";
+        }
+        Blockchain.proofString = t;
     }
     get getChain(): Array<Block> {
         return this.chain;
     }
-    public test() {
-        return "test";
-    }
     //Find a number wich multiplied by lastProof gives you a hash with 4 leading 0
     public proofOfWork(lastProof: number): number {
+        console.time('mine');
         let proof = 0;
         while (!Blockchain.validateProofOfWork(lastProof, proof))
             proof++;
 
+        console.timeEnd('mine');
         return proof;
     }
 
     public static validateProofOfWork(lastProof: number, proof: number): boolean {
-        return hash.sha256(lastProof + proof).substring(0, 4) === "0000";
+        return hash.sha256(lastProof.toString() + proof.toString()).substring(0, Blockchain.proofOfWorkLength) === Blockchain.proofString;
     }
     //Adds a new block to the Blockchain
     public newBlock(proof: number, prevHash?: string): Block {
@@ -46,7 +57,7 @@ export class Blockchain {
 
     //Hashes a blocks
     public static hash(block: Block): string {
-        return hash.sha256(block);
+        return hash.sha256(block.toString());
     }
 
     public get lastBlock(): Block {
