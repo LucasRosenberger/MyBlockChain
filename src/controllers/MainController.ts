@@ -1,12 +1,12 @@
 export class MainController {
-    private static instance : MainController;
-    public static getInstance() : MainController {
+    private static instance: MainController;
+    public static getInstance(): MainController {
         return !this.instance ? this.instance = new MainController() : this.instance;
     }
-    private constructor(){
-        
+    private constructor() {
+
     }
-    public testRoute(req,res){
-        res.send("API succesfully set up!");
+    public testRoute(req, res) {
+        res.send(`${Date.now()}`);
     }
 }
