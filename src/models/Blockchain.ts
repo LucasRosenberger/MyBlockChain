@@ -16,11 +16,7 @@ export class Blockchain {
         this.newBlock(100, "1");
     }
     private getProofString() {
-        let t: string = '';
-        for (let i = 0; i < Blockchain.proofOfWorkLength; i++) {
-            t += "0";
-        }
-        Blockchain.proofString = t;
+        Blockchain.proofString = Array(Blockchain.proofOfWorkLength + 1).join('0');
     }
     get getChain(): Array<Block> {
         return this.chain;
