@@ -37,4 +37,10 @@ export class MainController {
     public getChain(req, res) {
         res.json(this.blockChain.getChain);
     }
+    public getAmountofUuid(req, res) {
+        if (!req.params || !req.params.uuid)
+            return res.json({ message: "Not all parameters provided!" });
+
+        res.json({ message: this.blockChain.getAmountOfUUID(req.params.uuid) });
+    }
 }

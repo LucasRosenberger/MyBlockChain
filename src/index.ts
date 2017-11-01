@@ -3,7 +3,7 @@ import app from './App';
 import * as uuidv4 from 'uuid/v4';
 
 const port = 6969;
-const uuid = uuidv4().replace('-', '');
+const uuid = uuidv4().replace(/-/g, '');
 
 let setRoutes = new Routes(app, uuid);
 

@@ -3,7 +3,7 @@ import { Transaction } from './Transaction';
 import * as hash from 'js-sha256';
 
 export class Blockchain {
-    private chain: Array<Block>;
+    public chain: Array<Block>;
     private currentTransactions: Array<Transaction>;
     private static proofOfWorkLength: number = 4;
     private static proofString: string;
@@ -34,6 +34,14 @@ export class Blockchain {
 
         console.timeEnd('mine');
         return proof;
+    }
+
+    public getAmountOfUUID(uuid: string): number {
+        let sum = 0;
+        this.chain.forEach((val) => {
+            sum += val.transactions.filter((t) => t.receiver == uuid).map((t) => t.amount).reduce((pv, cv) => pv + cv, 0);
+        });
+        return sum;
     }
 
     public static validateProofOfWork(lastProof: number, proof: number): boolean {

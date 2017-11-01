@@ -22,5 +22,9 @@ export class Routes {
         this.server.route('/chain').get((req, res) => {
             this.mainController.getChain(req, res);
         });
+
+        this.server.route('/amount/:uuid').get((req, res) => {
+            this.mainController.getAmountofUuid(req, res);
+        });
     }
 }
